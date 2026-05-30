@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Incredible India</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --orange: #FF6B00;
+    --green:  #138808;
+    --navy:   #000080;
+    --gold:   #F5A623;
+    --light:  #FFF8F0;
+    --dark:   #1A1A2E;
+    --gray:   #6B7280;
+  }
+
+  body { font-family: 'Segoe UI', sans-serif; background: #fff; color: var(--dark); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 64px;
+    border-bottom: 3px solid var(--orange);
+  }
+  .nav-logo { font-size: 1.4rem; font-weight: 700; color: var(--orange); letter-spacing: 1px; }
+  .nav-logo span { color: var(--green); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; font-size: 0.9rem; transition: color .2s; }
+  .nav-links a:hover { color: var(--orange); }
+
+  /* ── HERO ── */
+  .hero {
+    margin-top: 64px; height: 90vh; position: relative;
+    background: linear-gradient(135deg, #FF6B00 0%, #FF8C42 35%, #138808 100%);
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    overflow: hidden;
+  }
+  .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
+  .hero-content { position: relative; z-index: 1; color: #fff; padding: 2rem; }
+  .hero-content h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; letter-spacing: 3px; text-shadow: 0 4px 20px rgba(0,0,0,.4); }
+  .hero-content p { font-size: 1.2rem; margin: 1rem 0 2.5rem; opacity: .9; }
+  .hero-btn {
+    padding: .9rem 2.5rem; font-size: 1rem; font-weight: 600; border: none;
+    border-radius: 50px; background: var(--orange); color: #fff; cursor: pointer;
+    box-shadow: 0 8px 24px rgba(255,107,0,.4); transition: transform .2s;
+  }
+  .hero-btn:hover { transform: translateY(-3px); }
+  .hero-ashoka { position: absolute; bottom: 2rem; right: 5%; font-size: 5rem; opacity: .12; }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 5%; }
+  .section-label { font-size: .75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-bottom: .5rem; }
+  .section-title { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 800; color: var(--dark); margin-bottom: .75rem; }
+  .section-sub { font-size: 1rem; color: var(--gray); max-width: 560px; line-height: 1.7; }
+
+  /* ── STATS ── */
+  .stats { background: var(--navy); color: #fff; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2rem; margin-top: 3rem; }
+  .stat-card { text-align: center; }
+  .stat-num { font-size: 3rem; font-weight: 800; color: var(--gold); }
+  .stat-label { font-size: .9rem; opacity: .75; margin-top: .25rem; }
+  .stats .section-title { color: #fff; }
+
+  /* ── DESTINATIONS ── */
+  .destinations { background: var(--light); }
+  .dest-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .dest-card {
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    background: #fff; transition: transform .25s;
+  }
+  .dest-card:hover { transform: translateY(-6px); }
+  .dest-img {
+    height: 200px; display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+  }
+  .dest-body { padding: 1.25rem; }
+  .dest-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .3rem; }
+  .dest-body p { font-size: .875rem; color: var(--gray); line-height: 1.6; }
+  .dest-tag { display: inline-block; margin-top: .75rem; padding: .25rem .75rem; border-radius: 20px; background: var(--light); color: var(--orange); font-size: .75rem; font-weight: 600; }
+
+  /* ── HERITAGE ── */
+  .heritage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .heritage-list { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+  .heritage-list li { display: flex; align-items: flex-start; gap: .75rem; }
+  .heritage-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--light); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .heritage-list strong { display: block; font-weight: 600; font-size: .95rem; }
+  .heritage-list span { font-size: .85rem; color: var(--gray); }
+  .heritage-visual { background: linear-gradient(135deg, #FF6B00, #138808); border-radius: 20px; height: 380px; display: flex; align-items: center; justify-content: center; font-size: 8rem; }
+
+  /* ── CUISINE ── */
+  .cuisine { background: var(--dark); color: #fff; }
+  .cuisine .section-title { color: #fff; }
+  .cuisine .section-sub { color: rgba(255,255,255,.6); }
+  .food-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+  .food-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 1.5rem 1rem; text-align: center; transition: background .2s; }
+  .food-card:hover { background: rgba(255,107,0,.15); }
+  .food-card .emoji { font-size: 2.5rem; margin-bottom: .75rem; }
+  .food-card h4 { font-size: .95rem; font-weight: 600; }
+  .food-card p { font-size: .78rem; color: rgba(255,255,255,.55); margin-top: .3rem; }
+
+  /* ── PLAN TRIP ── */
+  .plan { background: var(--light); }
+  .plan-form { max-width: 600px; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .plan-form input, .plan-form select {
+    padding: .85rem 1rem; border: 1.5px solid #ddd; border-radius: 10px;
+    font-size: .95rem; outline: none; transition: border-color .2s;
+  }
+  .plan-form input:focus, .plan-form select:focus { border-color: var(--orange); }
+  .plan-form button {
+    padding: .9rem; background: var(--orange); color: #fff; border: none;
+    border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer;
+    transition: background .2s;
+  }
+  .plan-form button:hover { background: #e55a00; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,.7);
+    text-align: center; padding: 2rem 5%; font-size: .875rem;
+  }
+  footer strong { color: var(--gold); }
+
+  /* ── TRICOLOR BAR ── */
+  .tricolor { height: 5px; background: linear-gradient(90deg, #FF6B00 33%, #fff 33% 66%, #138808 66%); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .heritage-grid { grid-template-columns: 1fr; }
+    .heritage-visual { height: 200px; font-size: 5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Tricolor top bar -->
+<div class="tricolor"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-logo">Incredible <span>India</span></div>
+  <ul class="nav-links">
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#heritage">Heritage</a></li>
+    <li><a href="#cuisine">Cuisine</a></li>
+    <li><a href="#plan">Plan Trip</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>INCREDIBLE INDIA</h1>
+    <p>Discover a land of ancient heritage, diverse culture, and breathtaking beauty</p>
+    <button class="hero-btn" onclick="document.getElementById('destinations').scrollIntoView({behavior:'smooth'})">Explore Now</button>
+  </div>
+  <div class="hero-ashoka">☸</div>
+</section>
+
+<!-- Stats -->
+<section class="stats">
+  <div class="section-label">Why India</div>
+  <div class="section-title">A civilization 5000 years old</div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-num">1.4B</div><div class="stat-label">People & Cultures</div></div>
+    <div class="stat-card"><div class="stat-num">40</div><div class="stat-label">UNESCO World Heritage Sites</div></div>
+    <div class="stat-card"><div class="stat-num">22</div><div class="stat-label">Official Languages</div></div>
+    <div class="stat-card"><div class="stat-num">28</div><div class="stat-label">States to Explore</div></div>
+    <div class="stat-card"><div class="stat-num">7500km</div><div class="stat-label">Coastline</div></div>
+  </div>
+</section>
+
+<!-- Destinations -->
+<section class="destinations" id="destinations">
+  <div class="section-label">Top Destinations</div>
+  <div class="section-title">Where will you go?</div>
+  <p class="section-sub">From Himalayan peaks to tropical beaches, every corner of India tells a different story.</p>
+  <div class="dest-grid">
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#fff3e0,#ffe0b2);">🕌</div>
+      <div class="dest-body">
+        <h3>Taj Mahal, Agra</h3>
+        <p>A monument of eternal love — the marble masterpiece built by Emperor Shah Jahan.</p>
+        <span class="dest-tag">UNESCO Heritage</span>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#e8f5e9,#c8e6c9);">🏔</div>
+      <div class="dest-body">
+        <h3>Kerala Backwaters</h3>
+        <p>Glide through serene lagoons on a houseboat surrounded by coconut palms.</p>
+        <span class="dest-tag">Nature</span>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#fce4ec,#f8bbd0);">🌅</div>
+      <div class="dest-body">
+        <h3>Goa Beaches</h3>
+        <p>Sun-drenched shores, vibrant nightlife, and Portuguese-influenced architecture.</p>
+        <span class="dest-tag">Beach</span>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#e3f2fd,#bbdefb);">🏯</div>
+      <div class="dest-body">
+        <h3>Rajasthan Forts</h3>
+        <p>The land of kings — majestic forts, desert safaris, and royal palaces.</p>
+        <span class="dest-tag">History</span>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#f3e5f5,#e1bee7);">🙏</div>
+      <div class="dest-body">
+        <h3>Varanasi Ghats</h3>
+        <p>One of the world's oldest cities — experience the spiritual energy of the Ganges at dawn.</p>
+        <span class="dest-tag">Spiritual</span>
+      </div>
+    </div>
+    <div class="dest-card">
+      <div class="dest-img" style="background: linear-gradient(135deg,#e0f2f1,#b2dfdb);">🐯</div>
+      <div class="dest-body">
+        <h3>Jim Corbett, Uttarakhand</h3>
+        <p>India's oldest national park — home to Bengal tigers and diverse wildlife.</p>
+        <span class="dest-tag">Wildlife</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Heritage -->
+<section id="heritage">
+  <div class="heritage-grid">
+    <div>
+      <div class="section-label">Culture & Heritage</div>
+      <div class="section-title">Ancient wisdom, living tradition</div>
+      <p class="section-sub">India's heritage spans millennia — from the Indus Valley to the Mughal Empire to modern democracy.</p>
+      <ul class="heritage-list">
+        <li><div class="heritage-icon">🎭</div><div><strong>Classical Dance Forms</strong><span>Bharatanatyam, Kathak, Odissi, Kuchipudi & more</span></div></li>
+        <li><div class="heritage-icon">🎵</div><div><strong>Music Traditions</strong><span>Carnatic and Hindustani classical music</span></div></li>
+        <li><div class="heritage-icon">🧘</div><div><strong>Yoga & Ayurveda</strong><span>Ancient sciences of wellness born in India</span></div></li>
+        <li><div class="heritage-icon">🎨</div><div><strong>Art & Handicrafts</strong><span>Madhubani, Warli, Pashmina, Banarasi silk</span></div></li>
+        <li><div class="heritage-icon">🕌</div><div><strong>Architecture</strong><span>Temples, mosques, forts & stepwells across centuries</span></div></li>
+      </ul>
+    </div>
+    <div class="heritage-visual">🇮🇳</div>
+  </div>
+</section>
+
+<!-- Cuisine -->
+<section class="cuisine" id="cuisine">
+  <div class="section-label">Flavours of India</div>
+  <div class="section-title">A cuisine for every taste</div>
+  <p class="section-sub">From street food to royal thalis — Indian cuisine is one of the most diverse on Earth.</p>
+  <div class="food-grid">
+    <div class="food-card"><div class="emoji">🍛</div><h4>Biryani</h4><p>Hyderabad's aromatic rice dish</p></div>
+    <div class="food-card"><div class="emoji">🥘</div><h4>Butter Chicken</h4><p>Delhi's creamy tomato curry</p></div>
+    <div class="food-card"><div class="emoji">🥞</div><h4>Dosa</h4><p>South India's crispy crepe</p></div>
+    <div class="food-card"><div class="emoji">🌮</div><h4>Pav Bhaji</h4><p>Mumbai street food favourite</p></div>
+    <div class="food-card"><div class="emoji">🍬</div><h4>Gulab Jamun</h4><p>India's beloved dessert</p></div>
+    <div class="food-card"><div class="emoji">🍵</div><h4>Masala Chai</h4><p>The nation's soul in a cup</p></div>
+  </div>
+</section>
+
+<!-- Plan Trip -->
+<section class="plan" id="plan">
+  <div class="section-label">Ready to Travel?</div>
+  <div class="section-title">Plan your Indian adventure</div>
+  <p class="section-sub">Tell us your interests and we'll help you craft the perfect itinerary.</p>
+  <div class="plan-form">
+    <input type="text" placeholder="Your name" />
+    <input type="email" placeholder="Email address" />
+    <select>
+      <option>Select your interest</option>
+      <option>Heritage & History</option>
+      <option>Nature & Wildlife</option>
+      <option>Beaches & Backwaters</option>
+      <option>Spiritual Journey</option>
+      <option>Food & Culture</option>
+    </select>
+    <input type="date" />
+    <button onclick="alert('Thank you! We will get in touch soon. 🇮🇳')">Plan My Trip →</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2024 <strong>Incredible India</strong> — Tourism Website Clone Project</p>
+  <p style="margin-top:.5rem;">Built with HTML, CSS & JavaScript | VIT Pune, AI & Data Science</p>
+</footer>
+
+<div class="tricolor"></div>
+
+<script>
+  // Smooth nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 100;
+      const bottom = top + sec.offsetHeight;
+      const id = sec.getAttribute('id');
+      const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+      if (link) {
+        link.style.color = (scrollY >= top && scrollY < bottom) ? 'var(--orange)' : '';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
